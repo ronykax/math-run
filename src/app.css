@@ -5,10 +5,15 @@
 * {
   @apply text-white;
   font-family: "Sometype Mono", monospace;
+  transition: all 0.1s ease-in-out;
 }
 
 body {
   @apply bg-blackish;
+}
+
+.unsmooth {
+  transition: none;
 }
 
 .blink {
