@@ -117,8 +117,6 @@
   }
 </script>
 
-<title>Math Run</title>
-
 {#if loading || problems.length === 0}
   <main class="flex justify-center items-center h-[100svh]">
     <h1 class="text-white text-opacity-80">Loading...</h1>
