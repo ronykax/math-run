@@ -75,17 +75,17 @@
     countdownObj.clear();
   }
 
-  function changeIndex(index: TotalIndex) {
+  function changeIndex(newValue: TotalIndex) {
     if (timerObj.running) return;
     
-    totalIndex = index;
+    totalIndex = newValue;
   }
 
-  function changeCountdown(countdown_: Countdown) {
+  function changeCountdown(newValue: Countdown) {
     if (countdownObj.running) return;
 
-    countdown = countdown_;
-    countdownObj.edit(countdown_);
+    countdown = newValue;
+    countdownObj.edit(newValue);
   }
 
   function checkAnswer(event: Event) {
@@ -102,8 +102,10 @@
 
     if (parseInt(value) === result) {
       answer = "";
+
+      let total = modeTimer ? 9999 : totalIndex;
       
-      if (index + 1 >= totalIndex) {
+      if (index + 1 >= total) {
         finished = true;
         modeTimer ? countdownObj.stop() : timerObj.stop();
       } else {
@@ -123,58 +125,52 @@
   </main>
 {:else}
   <main class="flex justify-center items-center h-[100svh]">
-    <div class="fixed top-0 flex flex-col items-center justify-center w-full gap-1 py-3 text-lg bg-white md:gap-10 md:flex-row bg-opacity-7">
-      <div class="flex items-center">
+    <div class="fixed flex flex-col items-center px-3 py-2 bg-white rounded-md top-7 bg-opacity-7">
+      <div class="flex">
         {#if modeTimer}
-          <button class="text-white text-opacity-60 hover:text-opacity-80" on:click={changeMode}>Clock</button>
-          <span class="mx-3 text-sm text-opacity-60">•</span>
-          <button>Timer</button>
+          <button class="pb-1 pr-3 text-white text-opacity-60 hover:text-opacity-90" on:click={changeMode}>Clock</button>
+          <button class="pb-1 pl-3">Timer</button>
         {:else}
-          <button>Clock</button>
-          <span class="mx-3 text-sm text-opacity-60">•</span>
-          <button class="text-white text-opacity-60 hover:text-opacity-80" on:click={changeMode}>Timer</button>
+          <button class="pb-1 pr-3">Clock</button>
+          <button class="pb-1 pl-3 text-white text-opacity-60 hover:text-opacity-90" on:click={changeMode}>Timer</button>
         {/if}
       </div>
       <div class="flex">
         {#if modeTimer}
-          {#if countdown === 5}
-            <button class="px-3">5</button>
-          {:else}
-            <button class="px-3 text-white text-opacity-60 hover:text-opacity-80" on:click={() => changeCountdown(5)}>5</button>
-          {/if}
-          {#if countdown === 15}
-            <button class="px-3">15</button>
-          {:else}
-            <button class="px-3 text-white text-opacity-60 hover:text-opacity-80" on:click={() => changeCountdown(15)}>15</button>
-          {/if}
           {#if countdown === 30}
-            <button class="px-3">30</button>
-          {:else}
-            <button class="px-3 text-white text-opacity-60 hover:text-opacity-80" on:click={() => changeCountdown(30)}>30</button>
+            <button on:click={() => changeCountdown(5)} class="pt-1 pr-3 text-white text-opacity-60 hover:text-opacity-90">5</button>
+            <button on:click={() => changeCountdown(15)} class="px-3 pt-1 text-white text-opacity-60 hover:text-opacity-90">15</button>
+            <button class="pt-1 pl-3">30</button>
+          {:else if countdown === 15}
+            <button on:click={() => changeCountdown(5)} class="pt-1 pr-3 text-white text-opacity-60 hover:text-opacity-90">5</button>
+            <button class="px-3 pt-1">15</button>
+            <button on:click={() => changeCountdown(30)} class="pt-1 pl-3 text-white text-opacity-60 hover:text-opacity-90">30</button>
+          {:else if countdown === 5}
+            <button class="pt-1 pr-3">5</button>
+            <button on:click={() => changeCountdown(15)} class="px-3 pt-1 text-white text-opacity-60 hover:text-opacity-90">15</button>
+            <button on:click={() => changeCountdown(30)} class="pt-1 pl-3 text-white text-opacity-60 hover:text-opacity-90">30</button>
           {/if}
         {:else}
-          {#if totalIndex === 10}
-            <button class="px-3">10</button>
-          {:else}
-            <button class="px-3 text-white text-opacity-60 hover:text-opacity-80" on:click={() => changeIndex(10)}>10</button>
-          {/if}
-          {#if totalIndex === 20}
-            <button class="px-3">20</button>
-          {:else}
-            <button class="px-3 text-white text-opacity-60 hover:text-opacity-80" on:click={() => changeIndex(20)}>20</button>
-          {/if}
           {#if totalIndex === 30}
-            <button class="px-3">30</button>
-          {:else}
-            <button class="px-3 text-white text-opacity-60 hover:text-opacity-80" on:click={() => changeIndex(30)}>30</button>
+            <button on:click={() => changeIndex(10)} class="pt-1 pr-3 text-white text-opacity-60 hover:text-opacity-90">10</button>
+            <button on:click={() => changeIndex(20)} class="px-3 pt-1 text-white text-opacity-60 hover:text-opacity-90">20</button>
+            <button class="pt-1 pl-3">30</button>
+          {:else if totalIndex === 20}
+            <button on:click={() => changeIndex(10)} class="pt-1 pr-3 text-white text-opacity-60 hover:text-opacity-90">10</button>
+            <button class="px-3 pt-1">20</button>
+            <button on:click={() => changeIndex(30)} class="pt-1 pl-3 text-white text-opacity-60 hover:text-opacity-90">30</button>
+          {:else if totalIndex === 10}
+            <button class="pt-1 pr-3">10</button>
+            <button on:click={() => changeIndex(20)} class="px-3 pt-1 text-white text-opacity-60 hover:text-opacity-90">20</button>
+            <button on:click={() => changeIndex(30)} class="pt-1 pl-3 text-white text-opacity-60 hover:text-opacity-90">30</button>
           {/if}
-        {/if}        
+        {/if}
       </div>
     </div>
     <div class="flex flex-col items-center gap-3 text-7xl">
       <h1 class="tracking-widest text-right">{problems[index].num1} <br>{problems[index].op.replace("*", "×").replace("/", "÷")} {problems[index].num2}</h1>
-      <input class="pb-1 tracking-widest text-right bg-white border-b-2 border-white border-opacity-75 cursor-pointer w-38 bg-opacity-7 caret-transparent focus:outline-none focus:border-opacity-100 placeholder:text-white placeholder:text-opacity-50" type="text" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="{(index + 1).toString().padStart(2, "0")}" bind:value={answer} on:input={checkAnswer}>
-      <h1 class="text-2xl text-white text-opacity-80">
+      <input class="w-40 px-1 tracking-widest text-right bg-white border-b-2 border-white border-opacity-75 rounded-md cursor-pointer unsmooth bg-opacity-7 caret-transparent focus:outline-none focus:border-opacity-100 placeholder:text-white placeholder:text-opacity-50" type="text" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="{(index + 1).toString().padStart(2, "0")}" bind:value={answer} on:input={checkAnswer}>
+      <h1 class="text-lg text-white text-opacity-60">
         {#if modeTimer}
           {countdownObj.running ? countdownObj.time : countdown} second{countdownObj.time === 1 ? "" : "s"}
         {:else}
