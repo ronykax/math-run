@@ -16,11 +16,11 @@ export default {
         3: "3px",
         1: "1px"
       },
-      fontSize: {
-        "7andHalf": "5.25rem line-height: 1"
-      },
       textUnderlineOffset: {
         3: "3px"
+      },
+      padding: {
+        0.5: "0.125rem"
       }
     },
     colors: {
