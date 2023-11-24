@@ -169,7 +169,7 @@
     </div>
     <div class="flex flex-col items-center gap-3 text-7xl">
       <h1 class="tracking-widest text-right">{problems[index].num1} <br>{problems[index].op.replace("*", "×").replace("/", "÷")} {problems[index].num2}</h1>
-      <input class="w-40 px-1 tracking-widest text-right bg-white border-b-2 border-white border-opacity-75 rounded-md cursor-pointer unsmooth bg-opacity-7 caret-transparent focus:outline-none focus:border-opacity-100 placeholder:text-white placeholder:text-opacity-50" type="text" inputmode="numeric" maxlength="3" autocomplete="off" placeholder="{(index + 1).toString().padStart(2, "0")}" bind:value={answer} on:input={checkAnswer}>
+      <input class="w-40 px-1 tracking-widest text-right bg-white border-b-2 border-white border-opacity-75 rounded-md cursor-pointer unsmooth bg-opacity-7 caret-transparent focus:outline-none focus:border-opacity-100 placeholder:text-white placeholder:text-opacity-50" type="text" maxlength="3" autocomplete="off" placeholder="{(index + 1).toString().padStart(2, "0")}" bind:value={answer} on:input={checkAnswer}>
       <h1 class="text-lg text-white text-opacity-60">
         {#if modeTimer}
           {countdownObj.running ? countdownObj.time : countdown} second{countdownObj.time === 1 ? "" : "s"}
